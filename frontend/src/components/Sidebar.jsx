@@ -14,7 +14,7 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   return (
-    <aside style={styles.sidebar}>
+    <aside className="app-sidebar" style={styles.sidebar}>
       <div style={styles.brand}>
         <div style={styles.brandMark}>CB</div>
         <div>
@@ -55,9 +55,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     padding: '20px 14px',
-    position: 'sticky',
-    top: 0,
-    height: '100vh',
   },
   brand: { display: 'flex', alignItems: 'center', gap: 10, padding: '4px 8px 24px' },
   brandMark: {
