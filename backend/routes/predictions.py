@@ -10,6 +10,7 @@ recent one back out, and can also force a fresh recompute with ?refresh=true.
 from flask import Blueprint, jsonify, request
 from services.supabase_client import get_supabase
 from ml.predictor import predict_time_to_full
+from ml.rf_predictor import predict_fill_level
 
 predictions_bp = Blueprint("predictions", __name__)
 
@@ -52,3 +53,16 @@ def get_all_predictions():
         if latest.data:
             output.append(latest.data[0])
     return jsonify(output)
+
+
+@predictions_bp.route("/fill-level", methods=["POST"])
+def get_fill_level_prediction():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No input data provided"}), 400
+    try:
+        return jsonify(predict_fill_level(data))
+    except KeyError as e:
+        return jsonify({"error": f"Missing required field: {e}"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
