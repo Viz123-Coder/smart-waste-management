@@ -5,3 +5,5 @@ supabase
 scikit-learn
 numpy
 pandas
+joblib
+gunicorn
